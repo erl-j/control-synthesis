@@ -1,0 +1,12 @@
+datasets/*
+checkpoints
+*.png
+experiments/*
+figures
+.ipynb_checkpoints
+__pycache__
+onf_checkpoint
+md
+trained_control_models
+mixed_model_demo
+legacy

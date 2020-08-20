@@ -1,0 +1,86 @@
+import ddsp
+import ddsp.training
+
+# Parameters for Add:
+# ==============================================================================
+Add.name = 'add'
+
+# Parameters for Additive:
+# ==============================================================================
+Additive.n_samples = 32000
+Additive.name = 'additive'
+Additive.normalize_below_nyquist = True
+Additive.sample_rate = 16000
+Additive.scale_fn = @core.exp_sigmoid
+
+# Parameters for Autoencoder:
+# ==============================================================================
+Autoencoder.decoder = @decoders.RnnFcDecoder()
+Autoencoder.encoder = None
+Autoencoder.losses = [@losses.SpectralLoss()]
+Autoencoder.name = 'autoencoder'
+Autoencoder.preprocessor = @preprocessing.DefaultPreprocessor()
+Autoencoder.processor_group = @processors.ProcessorGroup()
+
+# Parameters for DefaultPreprocessor:
+# ==============================================================================
+DefaultPreprocessor.time_steps = 500
+
+# Parameters for exp_sigmoid:
+# ==============================================================================
+exp_sigmoid.exponent = 10.0
+exp_sigmoid.max_value = 2.0
+exp_sigmoid.threshold = 1e-07
+
+# Parameters for FilteredNoise:
+# ==============================================================================
+FilteredNoise.initial_bias = -5.0
+FilteredNoise.n_samples = 32000
+FilteredNoise.name = 'filtered_noise'
+FilteredNoise.scale_fn = @core.exp_sigmoid
+FilteredNoise.window_size = 0
+
+# Parameters for get_model:
+# ==============================================================================
+get_model.model = @models.Autoencoder()
+
+# Parameters for ProcessorGroup:
+# ==============================================================================
+ProcessorGroup.dag = \
+    [(@synths.Additive(), ['amps', 'harmonic_distribution', 'f0_hz']),
+     (@synths.FilteredNoise(), ['noise_magnitudes']),
+     (@processors.Add(), ['filtered_noise/signal', 'additive/signal']),
+     (@effects.Reverb(), ['add/signal'])]
+ProcessorGroup.name = 'processor_group'
+
+# Parameters for Reverb:
+# ==============================================================================
+Reverb.add_dry = True
+Reverb.name = 'reverb'
+Reverb.reverb_length = 48000
+Reverb.trainable = True
+
+# Parameters for RnnFcDecoder:
+# ==============================================================================
+RnnFcDecoder.ch = 512
+RnnFcDecoder.input_keys = ('midi_pitch_scaled', 'midi_velocity_scaled','onset_counter')
+RnnFcDecoder.layers_per_stack = 3
+RnnFcDecoder.name = None
+RnnFcDecoder.output_splits = \
+    (('amps', 1), ('harmonic_distribution', 60), ('noise_magnitudes', 65))
+RnnFcDecoder.rnn_channels = 512
+RnnFcDecoder.rnn_type = 'gru'
+
+# Parameters for SpectralLoss:
+# ==============================================================================
+SpectralLoss.delta_delta_freq_weight = 0.0
+SpectralLoss.delta_delta_time_weight = 0.0
+SpectralLoss.delta_freq_weight = 0.0
+SpectralLoss.delta_time_weight = 0.0
+SpectralLoss.fft_sizes = (2048, 1024, 512, 256, 128, 64)
+SpectralLoss.logmag_weight = 1.0
+SpectralLoss.loss_type = 'L1'
+SpectralLoss.loudness_weight = 0.0
+SpectralLoss.mag_weight = 1.0
+SpectralLoss.name = 'spectral_loss'
+

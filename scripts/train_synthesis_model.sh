@@ -1,0 +1,3 @@
+mkdir -p ./datasets/$1/synthesis_checkpoints
+
+ddsp_run --mode=train --alsologtostderr --save_dir="./datasets/$1/synthesis_checkpoints/" --gin_file=models/solo_instrument.gin --gin_file=datasets/tfrecord.gin --gin_param="TFRecordProvider.file_pattern='./datasets/$1/synthesis_tfr/*'" --gin_param="batch_size=16" --gin_param="train_util.train.num_steps=300000" --gin_param="train_util.train.steps_per_save=100" --gin_param="trainers.Trainer.checkpoints_to_keep=10" --gin_param="train_util.train.steps_per_summary=1" 
