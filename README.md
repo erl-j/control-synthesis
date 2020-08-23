@@ -2,7 +2,7 @@
 
 ## Usage
 
-### Prepare dataset
+### 1-Prepare dataset
 
 put 16k mono audio in a directory like so:
 
@@ -12,11 +12,11 @@ from root directory:
 
 `sh scripts/generate_controlsynthesiss_dataset.sh <dataset_name>`
 
-### Train the synthesis model
+### 2-Train synthesis model
 
 `sh scripts/train_synthesis_model.sh <dataset_name>`
 
-### Train the performance model
+### 3-Train control model
 `sh scripts/train_control_model.sh <dataset_name>`
 
 
