@@ -1,8 +1,10 @@
 # Control synthesis
 
+Audio examples are available [here][https://erl-j.github.io/controlsynthesis/#/]
+
 ## Usage
 
-### 1-Prepare dataset
+### Prepare dataset
 
 put 16k mono audio in a directory like so:
 
@@ -12,11 +14,11 @@ from root directory:
 
 `sh scripts/generate_controlsynthesiss_dataset.sh <dataset_name>`
 
-### 2-Train synthesis model
+### Train synthesis model
 
 `sh scripts/train_synthesis_model.sh <dataset_name>`
 
-### 3-Train control model
+### Train control model
 `sh scripts/train_control_model.sh <dataset_name>`
 
 
