@@ -1,6 +1,6 @@
 # Control synthesis
 
-Audio examples are available [here][https://erl-j.github.io/controlsynthesis/#/]
+Audio examples are available [here](https://erl-j.github.io/controlsynthesis/#/)
 
 ## Usage
 
