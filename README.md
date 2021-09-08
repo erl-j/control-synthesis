@@ -12,7 +12,7 @@ datasets/<dataset_name>/audio_16k
 
 from root directory:
 
-`sh scripts/generate_controlsynthesiss_dataset.sh <dataset_name>`
+`sh scripts/generate_controlsynthesis_dataset.sh <dataset_name>`
 
 ### Train synthesis model
 
